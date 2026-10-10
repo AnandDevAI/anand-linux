@@ -1,0 +1,3 @@
+This project adapts an installation approach associated with the EXALAB AnLinux Resources scripts. Before redistributing modified upstream code, verify and follow the upstream repository's current license and attribution terms: https://github.com/EXALAB/AnLinux-Resources
+
+Anand Linux branding does not imply ownership of upstream root filesystem contents or package repositories.
