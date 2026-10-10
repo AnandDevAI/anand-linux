@@ -22,9 +22,12 @@ cd ~/anand-linux
 ```
 5. Run installer
 ```
-chmod +x Anand.sh
-./Anand.sh
+chmod +x *
 ```
+```
+./anand-theme.sh
+```
+
 Start Anand Linux
 ```
 ./start-anand.sh
