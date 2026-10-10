@@ -5,11 +5,12 @@ Anand Linux is an Anand-branded Linux environment for Android using Termux and P
 Installation
 
 1. Update Termux
-  ```
+```
 pkg update && pkg upgrade -y
 ```
+```
 2. Install Git
-
+```
 pkg install -y git
 
 3. Clone repository
