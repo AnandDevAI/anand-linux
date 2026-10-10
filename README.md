@@ -22,7 +22,7 @@ cd ~/anand-linux
 ```
 5. Run installer
 ```
-chmod+x Anand.sh
+chmod +x Anand.sh
 ./Anand.sh
 ```
 Start Anand Linux
@@ -42,10 +42,6 @@ Features
 
 Disclaimer
 
-PRoot is not real root access. The upstream root filesystem may remain Kali-derived.
-
 Author
 
-AnandDevAI
-
-"GitHub Repository" (https://github.com/AnandDevAI/anand-linux)
+Anand
