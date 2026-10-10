@@ -8,28 +8,27 @@ Installation
 ```
 pkg update && pkg upgrade -y
 ```
-```
 2. Install Git
 ```
 pkg install -y git
-
-3. Clone repository
-
+```
+4. Clone repository
+```
 git clone https://github.com/AnandDevAI/anand-linux.git
-
+```
 4. Open folder
-
+```
 cd ~/anand-linux
-
+```
 5. Run installer
-
-chmod +x Anand.sh
+```
+chmod+x Anand.sh
 ./Anand.sh
-
+```
 Start Anand Linux
-
+```
 ./start-anand.sh
-
+```
 Red Terminal Prompt
 
 ┌──(Anand㉿Linux)-[~]
