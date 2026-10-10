@@ -1,40 +1,78 @@
 Anand Linux for Termux
 
-Anand Linux is a lightweight, Anand-branded Linux environment for Android that runs through Termux and PRoot.
+Anand Linux is an Anand-branded Linux command-line environment for Android, built using Termux and PRoot.
 
-It provides a Linux command-line environment with custom Anand Linux branding and a Kali-style red terminal prompt.
+It provides a customized Linux terminal experience with an Anand-branded, Kali-style red prompt.
+
+«Anand Linux uses an upstream Kali-derived root filesystem. Custom branding does not mean the underlying distribution or its packages were independently created by this project.»
 
 Features
 
-- Custom "Anand㉿Linux" terminal prompt.
-- Kali-style red prompt with the current working directory.
-- Automatic installation of required Termux packages.
-- PRoot-based Linux environment without requiring a rooted Android device.
-- Automatically generated "start-anand.sh" launcher.
-- Optional bind configuration through "anand-binds/".
-- Support for multiple CPU architectures, depending on upstream root filesystem availability.
+- Custom terminal prompt: "Anand㉿Linux"
+- Kali-style red ANSI prompt
+- Current working directory displayed in the prompt
+- PRoot-based Linux environment for Android
+- No rooted Android device required
+- Automatic installation of required Termux packages
+- Automatic root filesystem download and extraction
+- Automatically generated "start-anand.sh" launcher
+- Optional bind configuration through "anand-binds/"
+- Support for multiple CPU architectures, subject to upstream availability
 
 Requirements
 
-- Android device with Termux installed.
-- ARM64/AArch64 recommended.
-- Internet connection for downloading the root filesystem.
-- Sufficient free storage for the downloaded archive and extracted Linux environment.
+- An Android device
+- Termux installed from a trusted source
+- Internet connection for the initial installation
+- Sufficient free storage for the root filesystem
+- ARM64/AArch64 recommended
 
 Installation
 
-Open Termux and run:
+Method 1: Install from GitHub
+
+Open Termux and run the following commands one by one.
+
+Step 1 — Update Termux packages
 
 pkg update
+
+Step 2 — Install Git
+
 pkg install -y git
+
+Step 3 — Clone the repository
+
 git clone https://github.com/AnandDevAI/anand-linux.git
-cd anand-linux
+
+Step 4 — Open the project directory
+
+cd ~/anand-linux
+
+Step 5 — Make the installer executable
+
 chmod +x Anand.sh
+
+Step 6 — Run the installer
+
 ./Anand.sh
 
-The installer checks for required packages, downloads the configured upstream root filesystem if necessary, extracts it, configures the Anand Linux prompt, and generates the launcher.
+The installer checks for required packages, downloads the configured upstream root filesystem when needed, extracts it, configures the Anand Linux terminal prompt, and generates the launcher.
 
-Note: The initial installation may take some time depending on your internet speed and available storage.
+Important: The initial installation may take time. Do not close Termux while the root filesystem is downloading or extracting.
+
+Method 2: All-in-One Installation Commands
+
+If you prefer to copy the installation commands together, paste this block into Termux:
+
+pkg update &&
+pkg install -y git &&
+git clone https://github.com/AnandDevAI/anand-linux.git &&
+cd ~/anand-linux &&
+chmod +x Anand.sh &&
+./Anand.sh
+
+If "~/anand-linux" already exists, do not run the clone command again. Open the existing directory and run the installer instead.
 
 Start Anand Linux
 
@@ -43,99 +81,169 @@ After installation, run:
 cd ~/anand-linux
 ./start-anand.sh
 
-The terminal prompt should look like this:
+Expected Terminal Appearance
 
 ┌──(Anand㉿Linux)-[~]
 └─#
 
-The prompt uses red ANSI text. The terminal background and overall color scheme depend on your Termux theme.
+The prompt uses red ANSI text. Its background and other terminal colors depend on the active Termux color scheme.
 
-Update the Terminal Prompt
+Configure the Red Anand Linux Prompt
 
-If Anand Linux is already installed, you can configure the prompt without downloading the root filesystem again:
+The installer configures the prompt inside the local root filesystem.
 
-cd ~/anand-linux
-mkdir -p anand-fs/root
+If Anand Linux is already installed, you can update the prompt without downloading the root filesystem again.
 
-Create the Bash configuration:
+Run the following all-in-one command in Termux, outside the Linux environment:
 
+cd ~/anand-linux &&
+mkdir -p anand-fs/root &&
 cat > anand-fs/root/.bashrc <<'EOF'
 PS1='\[\033[1;31m\]┌──(Anand㉿Linux)-[\w]\n└─# \[\033[0m\]'
 EOF
-
-Configure the login shell to load ".bashrc":
-
 cat > anand-fs/root/.bash_profile <<'EOF'
 if [ -f /root/.bashrc ]; then
     . /root/.bashrc
 fi
 EOF
-
-Restart Anand Linux:
-
 ./start-anand.sh
 
-Project Files
+This command:
+
+1. Creates the root user's Bash configuration directory if needed.
+2. Sets the red "Anand㉿Linux" prompt.
+3. Configures the login shell to load ".bashrc".
+4. Starts Anand Linux.
+
+Prompt Configuration Details
+
+Component| Description
+"Anand"| Custom user label
+"㉿"| Kali-style prompt separator
+"Linux"| Custom environment label
+"[\w]"| Current working directory
+"\033[1;31m"| Bold red ANSI color
+"\033[0m"| Resets terminal formatting
+
+The displayed "Anand" label is cosmetic. It does not create a separate Linux user account.
+
+Project Structure
+
+anand-linux/
+├── Anand.sh
+├── README.md
+├── LICENSE
+├── start-anand.sh
+├── anand-binds/
+└── anand-fs/
 
 File or directory| Purpose
 "Anand.sh"| Installer and prompt configuration
-"start-anand.sh"| Generated Linux launcher
 "README.md"| Project documentation
 "LICENSE"| Project license
+"start-anand.sh"| Generated launcher
 "anand-binds/"| Optional bind configuration snippets
-"anand-fs/"| Installed root filesystem; not included in the repository
+"anand-fs/"| Installed root filesystem
+
+The launcher is generated by "Anand.sh". The root filesystem is stored locally and is not included in the GitHub repository by default.
 
 Upstream Compatibility
 
 The installer uses the configured root filesystem URL from "EXALAB/AnLinux-Resources" (https://github.com/EXALAB/AnLinux-Resources), including its Kali directory.
 
-Anand Linux adds local branding and configuration. It does not claim that the upstream root filesystem, distribution, or package repositories were independently created by this project.
+The upstream URL is retained for compatibility with the configured download source. Its availability and supported architectures may change.
+
+Anand Linux provides local branding and configuration. It does not claim that the upstream root filesystem, distribution, or package repositories were independently created by this project.
 
 This project does not use the Kali NetHunter installer.
 
-The upstream download URL and supported architectures may change. If installation fails, check the upstream repository and verify that the requested root filesystem archive exists.
-
 Security and Limitations
 
-- PRoot does not provide real kernel-level root access.
-- The environment remains subject to Android's security restrictions.
-- A custom terminal prompt changes the displayed name, not the underlying Linux distribution.
-- Package availability depends on the configured root filesystem and its repositories.
-- Do not execute untrusted bind configuration snippets; the launcher sources files from "anand-binds/" as shell code.
+- PRoot is not real root access. It does not grant kernel-level root privileges.
+- Android security restrictions still apply.
+- The terminal prompt changes the displayed label, not the underlying distribution.
+- Package availability depends on the configured root filesystem and package repositories.
+- Do not execute untrusted shell scripts or bind configuration snippets.
+- Back up important files before modifying the root filesystem.
+- Do not upload the complete root filesystem to GitHub unnecessarily; it may be large and can contain local environment data.
 
 Troubleshooting
 
-Launcher not found
+1. "Permission denied"
 
+Run:
+
+cd ~/anand-linux
 chmod +x Anand.sh
+chmod +x start-anand.sh
+
+2. "start-anand.sh: No such file or directory"
+
+Generate the launcher by running:
+
+cd ~/anand-linux
 ./Anand.sh
 
-Root filesystem missing
+3. Root filesystem missing
 
-Run the installer again:
+Run:
 
+cd ~/anand-linux
 ./Anand.sh
 
-Prompt does not appear red
+If the root filesystem is incomplete, inspect and back it up before removing or recreating it.
 
-Check the Bash configuration:
+4. Download failed
 
-cat anand-fs/root/.bashrc
-cat anand-fs/root/.bash_profile
+Check your internet connection and verify the root filesystem path in the upstream repository:
 
-Then exit the environment and start it again:
+https://github.com/EXALAB/AnLinux-Resources
 
+5. Prompt is not red
+
+Check the configuration files:
+
+cat ~/anand-linux/anand-fs/root/.bashrc
+cat ~/anand-linux/anand-fs/root/.bash_profile
+
+Exit Anand Linux and start it again:
+
+cd ~/anand-linux
 ./start-anand.sh
 
-Download fails
+If your Termux theme changes the background, configure the desired theme separately.
 
-Check your internet connection and verify the upstream root filesystem URL.
+6. Architecture not supported
+
+Check your Termux architecture:
+
+dpkg --print-architecture
+
+The installer supports the architecture mappings included in "Anand.sh", but the corresponding upstream archive must also exist.
+
+Updating the Project
+
+To update your local Git checkout with changes from GitHub:
+
+cd ~/anand-linux
+git pull
+
+Review any local changes before pulling. Updating the Git repository does not automatically update an already installed root filesystem or its Linux packages.
 
 License
 
-See the ""LICENSE"" (LICENSE) file for the terms applicable to this project.
+See ""LICENSE"" (LICENSE) for the license terms applicable to this project.
+
+Check upstream licenses and notices for third-party components and root filesystem content.
+
+Author
+
+AnandDevAI
+
+Project: "Anand Linux for Termux" (https://github.com/AnandDevAI/anand-linux)
+
+A lightweight, Anand-branded Linux environment for Android and Termux.
 
 ---
 
-Anand Linux
-Anand-branded Linux environment for Android and Termux.
+Anand Linux — Your terminal, your environment.
