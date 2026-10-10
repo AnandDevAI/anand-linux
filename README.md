@@ -1,51 +1,48 @@
 Anand Linux for Termux
 
-Anand Linux is an Anand-branded Linux environment for Android using Termux and PRoot, with a custom red "Anand㉿Linux" terminal prompt.
-
-Features
-
-- Kali-style red prompt
-- Android/Termux support
-- PRoot environment; no rooted phone required
+Anand Linux is an Anand-branded Linux environment for Android using Termux and PRoot.
 
 Installation
 
-1. Install Git
+1. Update Termux
 
-pkg update && pkg install -y git
+pkg update && pkg upgrade -y
 
-2. Download the project
+2. Install Git
+
+pkg install -y git
+
+3. Clone repository
 
 git clone https://github.com/AnandDevAI/anand-linux.git
 
-3. Install Anand Linux
+4. Open folder
 
 cd ~/anand-linux
+
+5. Run installer
+
 chmod +x Anand.sh
 ./Anand.sh
 
-Start
+Start Anand Linux
 
-cd ~/anand-linux
 ./start-anand.sh
 
-Expected prompt:
+Red Terminal Prompt
 
 ┌──(Anand㉿Linux)-[~]
 └─#
 
-Project Files
+Features
 
-- "Anand.sh" — Installer
-- "start-anand.sh" — Generated launcher
-- "anand-binds/" — Optional bind configurations
-- "anand-fs/" — Local root filesystem
+- Red Kali-style prompt
+- Termux + PRoot
+- No rooted phone required
 
-Notes
+Disclaimer
 
-- PRoot does not provide real root access.
-- The root filesystem is obtained from "EXALAB/AnLinux-Resources" (https://github.com/EXALAB/AnLinux-Resources).
-- Upstream distribution and package identity may remain Kali-derived.
+PRoot is not real root access. The upstream root filesystem may remain Kali-derived.
 
 Author
 
